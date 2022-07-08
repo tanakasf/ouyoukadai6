@@ -10,6 +10,13 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @book = Book.new
+   if params[:search] == nil || ''
+    @books= Book.all
+   elsif params[:search] == ''
+    @books= Book.all
+   else
+    @books = Book.where("body LIKE ? ",'%' + params[:search] + '%')
+   end
   end
 
   def create
